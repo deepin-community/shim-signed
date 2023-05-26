@@ -1,0 +1,15 @@
+Description: Secure Boot chain-loading bootloader - **NOT** signed
+This package provides a minimalist boot loader which allows verifying
+signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+against a built-in signature database.  Its purpose is to allow a small,
+infrequently-changing binary to be signed by the UEFI CA, while allowing
+an OS distributor to revision their main bootloader independently of the CA.
+
+NOTICE: This package used to contain the version of the bootloader
+binary signed by the Microsoft UEFI CA, but significant toolchain
+problems on arm64 have made it impossible to reliably build a safe
+arm64 shim for now. See
+https://wiki.debian.org/SecureBoot#arm64_problems for more
+information. In the hope that we can resolve these problems soon, for
+now this package instead contains another copy of the *unsigned* shim
+on arm64 to maintain package dependencies.

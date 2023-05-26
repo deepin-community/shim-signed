@@ -1,0 +1,30 @@
+shim-signed (1.34) unstable; urgency=medium
+
+  Debian no longer supports UEFI Secure Boot on arm64 systems
+
+  Shim and other EFI programs have always been difficult to build on
+  arm64, compared to x86 platforms. Binutils for amd64 and i386
+  includes explicit support for creating programs in the PE/COFF
+  binary format that EFI uses, but this has never been added for
+  arm64.
+
+  In the past, shim developers added some local hacks into the shim
+  package to generate a *mostly*-compliant PE/COFF EFI binary without
+  this toolchain support, and that seemed to be sufficient for
+  use. Everything seemed to work. *However*, during the development
+  and testing phase of shim 15.3 and 15.4, we found found significant
+  issues with this approach. New security features needed in shim
+  (SBAT) showed up severe problems with the lack of proper toolchain
+  support. See https://github.com/rhboot/shim/issues/366 for more
+  details. The old hacks around binutils are no longer sustainable.
+
+  Statistics tell us that very few people have attempted to use arm64
+  Secure Boot with Debian so far. In the interests of releasing needed
+  updates in a timely manner, we have decided *for the time being* to
+  disable signed shim support for Debian arm64.
+
+  We hope to re-introduce arm64 Secure Boot support as soon as
+  possible in the future.
+
+ -- Steve McIntyre <93sam@debian.org>  Mon, 03 May 2021 18:28:58 +0100
+

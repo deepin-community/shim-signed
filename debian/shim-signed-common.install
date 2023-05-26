@@ -1,0 +1,2 @@
+debian/source_shim-signed.py /usr/share/apport/package-hooks/
+update-secureboot-policy /usr/sbin/

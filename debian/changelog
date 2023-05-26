@@ -1,5 +1,181 @@
-template-repository (1.0-1) unstable; urgency=medium
+shim-signed (1.36.5) unstable; urgency=medium
 
-  * Initial release
+  * add shimaa64.efi.
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- LiChengGang <lichenggang@uniontech.com>  Thu, 25 May 2023 16:33:36 +0800
+
+shim-signed (1.36.4) unstable; urgency=medium
+
+  * Non-maintainer upload.
+
+ -- deepin <lichenggang@uniontech.com>  Tue, 08 Nov 2022 15:25:49 +0800
+
+shim-signed (1.36.3) unstable; urgency=medium
+
+  * update .
+
+ -- deepin <lichenggang@uniontech.com>  Mon, 28 Jun 2021 16:40:44 +0800
+
+shim-signed (1.36) unstable; urgency=medium
+
+  * Add defensive code around calls to db_get. Don't fail if they
+    return errors. Closes: #988114
+  * Update build-dep on shim-unsigned to use 15.4-5
+
+ -- Steve McIntyre <93sam@debian.org>  Thu, 06 May 2021 00:50:02 +0100
+
+shim-signed (1.35) unstable; urgency=medium
+
+  * Add explicit dependency from shim-signed to shim-signed-common.
+    Also check if we have update-secureboot-policy available before we
+    try to call it. Closes: #988047, #988056
+  * If we're not running on an EFI system then exit cleanly in
+    postinst and postrm. We have nothing to do here. Closes: #988059
+  * Fix the old doc links for shim-signed. Closes: #988057
+  * Update build-dep on shim-unsigned
+
+ -- Steve McIntyre <93sam@debian.org>  Tue, 04 May 2021 18:47:42 +0100
+
+shim-signed (1.34) unstable; urgency=medium
+
+  * Build against new signed binaries corresponding to 15.4-2
+    Closes: #971129, #987991
+  * ***WARNING***: arm64 shim is no longer signed, due to major
+    toolchain problems. See NEWS.Debian for more
+    information. Separated out the binary package for arm64 to allow
+    for a different description, and tweaked the Makefile too.
+  * Update build-deps and Standards-Version
+  * Tweak Makefile setup - do our verification testing chained from
+    the "all" target, not "clean". Closes: #936002
+  * Don't include apport stuff in the Debian build, it's not useful.
+  * Tweak dh_install* usage for docs.
+  * Add Spanish translation for debconf templates, thanks to
+    Camaleón. Closes: #987339
+  * Multiple bugfixes in postinst and postrm handling:
+    + Call grub-install using the correct grub target in postinst
+    + Also call grub-install using the correct grub target in the
+      postrm, and clean up the shim binary from the ESP
+    + In each case, also check and use the correct configured options
+      for grub-install
+    + Move the postinst grub-install code from the -common package to
+      the arch-specific packages, to make sure it's always called when
+      needed.
+    + Only run grub-install etc. if we're actually on an EFI-booted
+      system.
+
+ -- Steve McIntyre <93sam@debian.org>  Mon, 03 May 2021 20:13:04 +0100
+
+shim-signed (1.33) unstable; urgency=medium
+
+  * Build against new signed binaries corresponding to
+    15+1533136590.3beb971-7
+  * Update Build-Depends and Depends to match. Closes: #928107
+  * Drop the hard-coded version in Built-Using; pick up the version of
+    shim we're using properly.
+  * Display the sha256sums of the binaries as we check them
+
+ -- Steve McIntyre <93sam@debian.org>  Sun, 09 Jun 2019 17:32:54 +0100
+
+shim-signed (1.32) unstable; urgency=medium
+
+  * Add Breaks/Replaces to shim-signed-common for
+    update-secureboot-policy etc. Closes: #929673
+
+ -- Steve McIntyre <93sam@debian.org>  Tue, 28 May 2019 14:23:54 +0100
+
+shim-signed (1.31) unstable; urgency=medium
+
+  * update-secureboot-policy: fix error if /var/lib/dkms does not
+    exist. Closes: #923718
+  * Separate the helper scripts into a new shim-signed-common package,
+    apart from the actual signed shim binaries so that we can
+    sensibly support co-installability using Multi-Arch.
+    Closes: #928486
+  * Add/update translations:
+    + Italian (Closes: #915993, thanks to Beatrice Torracca)
+    + Swedish (Closes: #921410, thanks to Matrin Bagge)
+    + Russian (Closes: #922229, thanks to Lev Lamberov)
+    + Dutch (Closes: #917580, #926664, thanks to Frans Spiesschaert)
+  * Remove doc link used to quieten old lintian versions
+
+ -- Steve McIntyre <93sam@debian.org>  Mon, 27 May 2019 23:02:10 +0100
+
+shim-signed (1.30) unstable; urgency=medium
+
+  * Force the built-using version to be 15+1533136590.3beb971-6. That
+    *does* match the source we've used, we're only using -5 due to
+    toolchain changes elsewhere. Ick :-(
+
+ -- Steve McIntyre <93sam@debian.org>  Tue, 23 Apr 2019 00:01:10 +0100
+
+shim-signed (1.29) unstable; urgency=medium
+
+  * New signed binaries available from MS for amd64, arm64 and i386
+  * Change maintainer to be the EFI team
+  * Update the build-depends
+    + Specifically depend on sbsigntool (>= 0.9.2-2) to fix a bug in the
+      PE/COFF checksum that otherwise breaks the build
+  * Tweak the binary package setup a lot
+    + We're now building for 3 arches
+    + Depend on the right grub-efi-$arch-bin package for each arch
+    + Depend on the right shim-helpers-$arch-signed package for each
+      arch
+    + Remove the old Replaces: and Breaks:, as we don't clash with files
+      from the shim binary package any more.
+  * Stop copying helper binaries into our package now
+    + We just depend on shim-helpers-ARCH-signed now
+  * Tweak build, don't assume amd64
+  * Add lintian overrides for things we can't really change:
+    + We're including pre-built binaries, as that's where our signatures
+      are coming from. We have the matching source in the shim source
+      package.
+  * Update Standards-Version to 4.3.0 (no changes needed)
+
+ -- Steve McIntyre <93sam@debian.org>  Mon, 22 Apr 2019 22:57:55 +0100
+
+shim-signed (1.28+nmu3) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * (Still) explicitly uploading from a chroot with older binaries
+    installed for shim and sbsigntool, and update Build-Depends to
+    point to those speficic versions. This package will *not* function
+    with other versions installed.
+  * Add Breaks: shim (<= 0.9+1474479173.6c180c6-1), Closes: #924100
+  * +nmu2 fixed the installability problem caused by waiting for
+    Microsoft's signature on the new shim packages. Closes: #922179
+
+ -- Steve McIntyre <93sam@debian.org>  Sat, 09 Mar 2019 23:52:41 +0000
+
+shim-signed (1.28+nmu2) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Copy the helper binaries from the shim binary so that we no longer
+    need to depend on it. See #922179 for more details. Add a Replaces:
+    shim and to allow us to over-write binaries there.
+  * Explicitly uploading in a chroot with older binaries installed for
+    shim and sbsigntool, and update Build-Depends to point to those
+    speficic versions. This package will *not* function with other
+    versions installed.
+
+ -- Steve McIntyre <93sam@debian.org>  Sun, 03 Mar 2019 22:33:41 +0000
+
+shim-signed (1.28+nmu1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Fix debconf templates, Closes: #910986, #860720.
+  * Update German translation, thanks Markus Hiereth,
+    Closes: #879009, #913463.
+  * Update Dutch translation, thanks Frans Spiesschaert,
+    Closes: #862209, #914531.
+  * Update French translation, thanks Alban Vidal, Closes: #864869, #913563.
+  * Update Portuguese translation, thanks Rui Branco,
+    Closes: #870665, #912886.
+  * Added Czech translation, thanks Michal Simunek, Closes: #913294.
+
+ -- Helge Kreutzmann <debian@helgefjell.de>  Sun, 04 Nov 2018 08:09:26 +0100
+
+shim-signed (1.28) unstable; urgency=medium
+
+  * Initial Debian upload, based on Ubuntu package.
+
+ -- Steve Langasek <vorlon@debian.org>  Fri, 14 Apr 2017 21:44:06 +0000

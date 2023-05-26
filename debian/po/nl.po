@@ -1,0 +1,185 @@
+# Dutch translation of shim-signed debconf templates.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the shim-signed package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Frans Spiesschaert <Frans.Spiesschaert@yucom.be>, 2017, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: shim-signed_1.28+nmu3\n"
+"Report-Msgid-Bugs-To: shim-signed@packages.debian.org\n"
+"POT-Creation-Date: 2018-11-04 08:13+0100\n"
+"PO-Revision-Date: 2019-03-19 17:41+0100\n"
+"Last-Translator: Frans Spiesschaert <Frans.Spiesschaert@yucom.be>\n"
+"Language-Team: Debian Dutch l10n Team <debian-l10n-dutch@lists.debian.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#. Type: text
+#. Description
+#: ../templates:1001
+#| msgid "Configuring Secure Boot"
+msgid "Configuring UEFI Secure Boot"
+msgstr "Configureren van UEFI Veilig Opstarten (UEFI Secure Boot)"
+
+#. Type: error
+#. Description
+#: ../templates:2001
+msgid "Invalid password"
+msgstr "Ongeldig wachtwoord"
+
+#. Type: error
+#. Description
+#: ../templates:2001
+msgid ""
+"The Secure Boot key you've entered is not valid. The password used must be "
+"between 8 and 16 characters."
+msgstr ""
+"U voerde een ongeldige sleutel in voor Secure Boot. Het gebruikte wachtwoord "
+"moet tussen 8 en 16 tekens bevatten."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Disable UEFI Secure Boot?"
+msgstr "UEFI Secure Boot (veilig opstarten) uitschakelen?"
+
+#. Type: boolean
+#. Description
+#. Type: note
+#. Description
+#: ../templates:3001 ../templates:5001
+msgid ""
+"If Secure Boot remains enabled on your system, your system may still boot "
+"but any hardware that requires third-party drivers to work correctly may not "
+"be usable."
+msgstr ""
+"Indien Secure Boot op uw systeem ingeschakeld blijft, zal uw systeem nog "
+"steeds opstarten maar mogelijk zal hardware die stuurprogramma's van derden "
+"nodig heeft om correct te functioneren, niet bruikbaar zijn."
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Enable UEFI Secure Boot?"
+msgstr "UEFI Secure Boot (veilig opstarten) inschakelen?"
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid ""
+"If Secure Boot is enabled on your system, your system may still boot but any "
+"hardware that requires third-party drivers to work correctly may not be "
+"usable."
+msgstr ""
+"Indien Secure Boot op uw systeem ingeschakeld wordt, zal uw systeem nog "
+"steeds opstarten maar mogelijk zal hardware die stuurprogramma's van derden "
+"nodig heeft om correct te functioneren, niet bruikbaar zijn."
+
+#. Type: note
+#. Description
+#: ../templates:5001
+#| msgid "Your system has UEFI Secure Boot enabled."
+msgid "Your system has UEFI Secure Boot enabled"
+msgstr "Op uw systeem is UEFI Secure Boot (veilig opstarten) ingeschakeld"
+
+#. Type: note
+#. Description
+#: ../templates:5001
+msgid "UEFI Secure Boot is not compatible with the use of third-party drivers."
+msgstr ""
+"UEFI Secure Boot is incompatibel met het gebruik van stuurprogramma's van "
+"derden."
+
+#. Type: note
+#. Description
+#: ../templates:5001
+msgid ""
+"The system will assist you in toggling UEFI Secure Boot. To ensure that this "
+"change is being made by you as an authorized user, and not by an attacker, "
+"you must choose a password now and then use the same password after reboot "
+"to confirm the change."
+msgstr ""
+"Het systeem zal u assisteren bij het omschakelen van UEFI Secure Boot. Om de "
+"garantie te hebben dat deze omschakeling door u als gemachtigde gebruiker "
+"gebeurt en niet door een aanvaller, moet u nu een wachtwoord kiezen en "
+"vervolgens na het heropstarten hetzelfde wachtwoord gebruiken om de "
+"wijziging te bevestigen."
+
+#. Type: note
+#. Description
+#: ../templates:5001
+#| msgid ""
+#| "If you choose to proceed but do not confirm the password upon reboot, "
+#| "Ubuntu will still be able to boot on your system but the Secure Boot "
+#| "state will not be changed."
+msgid ""
+"If you choose to proceed but do not confirm the password upon reboot, the "
+"Secure Boot configuration will not be changed, and the machine will continue "
+"booting as before."
+msgstr ""
+"Indien u ervoor kiest om verder te gaan maar bij het heropstarten het "
+"wachtwoord niet bevestigt, zal de configuratie van Secure Boot niet "
+"gewijzigd worden en zal het systeem nog steeds opstarten zoals voorheen."
+
+#. Type: password
+#. Description
+#: ../templates:6001
+#| msgid "Enable UEFI Secure Boot?"
+msgid "UEFI Secure Boot password:"
+msgstr "Wachtwoord voor UEFI Secure Boot (veilig opstarten):"
+
+#. Type: password
+#. Description
+#: ../templates:6001
+msgid "Please enter a password for configuring UEFI Secure Boot."
+msgstr "Geef een wachtwoord op voor het configureren van UEFI Secure Boot."
+
+#. Type: password
+#. Description
+#: ../templates:6001
+msgid ""
+"This password will be used after a reboot to confirm authorization for a "
+"change to Secure Boot state."
+msgstr ""
+"Dit wachtwoord zal na een herstart gebruikt worden om te bevestigen dat een "
+"wijziging aan de toestand van Secure Boot toegestaan is."
+
+#. Type: password
+#. Description
+#: ../templates:7001
+msgid "Re-enter password to verify:"
+msgstr "Voer ter verificatie het wachtwoord opnieuw in:"
+
+#. Type: password
+#. Description
+#: ../templates:7001
+#| msgid "Enter the same password again to verify you have typed it correctly."
+msgid ""
+"Please enter the same password again to verify that you have typed it "
+"correctly."
+msgstr ""
+"Voer hetzelfde wachtwoord nogmaals in om na te gaan of u het correct typte."
+
+#. Type: error
+#. Description
+#: ../templates:8001
+msgid "Password input error"
+msgstr "Fout bij wachtwoordinvoer"
+
+#. Type: error
+#. Description
+#: ../templates:8001
+msgid "The two passwords you entered were not the same. Please try again."
+msgstr ""
+"De twee ingevoerde wachtwoorden waren niet identiek. Probeer het nogmaals."
+
+#~ msgid ""
+#~ "Enter a password for Secure Boot. It will be asked again after a reboot."
+#~ msgstr ""
+#~ "Voer een wachtwoord in voor Secure Boot. Na het heropstarten zal er "
+#~ "nogmaals naar gevraagd worden."
