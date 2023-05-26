@@ -1,4 +1,50 @@
-#!/usr/bin/make -f
+#! /usr/bin/make -f
+
+VERSION := $(shell LC_ALL=C dpkg-parsechangelog | grep ^Version: | cut -d ' ' -f 2)
+SHIM_VERSION := $(shell dpkg-query -f '$${Version}\n' -W shim-unsigned)
+VENDOR := $(shell dpkg-vendor --query vendor)
+
+include /usr/share/dpkg/architecture.mk
+
+ifeq ($(DEB_HOST_ARCH),amd64)
+$(shell rm build/shimaa64*)
+export EFI_ARCH := x64
+endif
+ifeq ($(DEB_HOST_ARCH),arm64)
+$(shell rm build/shimx64*)
+export EFI_ARCH := aa64
+endif
+ifeq ($(DEB_HOST_ARCH),i386)
+export EFI_ARCH := ia32
+endif
 
 %:
 	dh $@
+
+docdir := debian/shim-signed-common/usr/share/doc/shim-signed-common
+
+override_dh_installdebconf:
+	dh_installdebconf -p shim-signed-common
+
+override_dh_installdeb:
+ifeq ($(VENDOR),Debian)
+	# Remove apport files from Debian builds, they're not useful
+	find debian/shim-signed-common -name '*apport*' | xargs rm -rvf
+endif
+	dh_installdeb
+
+override_dh_gencontrol:
+ifeq ($(DEB_HOST_ARCH),arm64)
+	# On arm64, substitute our package description with "not
+	# signed" warning at build time
+	dh_gencontrol -pshim-signed -- \
+		-v$(VERSION)+$(SHIM_VERSION) \
+		-Vshim:Version=$(SHIM_VERSION) \
+		-DDescription="$$(cat debian/arm64.description)"
+	dh_gencontrol --remaining-packages -- \
+		-v$(VERSION)+$(SHIM_VERSION) \
+		-Vshim:Version=$(SHIM_VERSION)
+else
+	dh_gencontrol -- -v$(VERSION)+$(SHIM_VERSION) \
+		-Vshim:Version=$(SHIM_VERSION)
+endif

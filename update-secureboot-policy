@@ -1,0 +1,152 @@
+#!/bin/sh
+set -e
+
+if  test $# = 0                                                 \
+    && test x"$SHIM_NOTRIGGER" = x                              \
+ && test x"$DPKG_MAINTSCRIPT_PACKAGE" != x                      \
+ && dpkg-trigger --check-supported 2>/dev/null
+then
+        if dpkg-trigger --no-await shim-secureboot-policy; then
+                if test x"$SHIM_TRIGGER_DEBUG" != x; then
+                        echo "shim: wrapper deferring policy update (trigger activated)"
+                fi
+                exit 0
+        fi
+fi
+
+. /usr/share/debconf/confmodule
+
+setup_mok_validation()
+{
+    local moksbstatert
+    local efivars secureboot_var moksb_var moksbstatert_var
+    local enable_sb action
+    enable_sb=$1
+    efivars=/sys/firmware/efi/efivars
+    secureboot_var=SecureBoot-8be4df61-93ca-11d2-aa0d-00e098032b8c
+    moksb_var=MokSB-605dab50-e046-4300-abb6-3dd810dd8b23
+    moksbstatert_var=MokSBStateRT-605dab50-e046-4300-abb6-3dd810dd8b23
+    action=disable
+
+    if [ $enable_sb -eq 1 ]; then
+        action=enable
+    fi
+
+    if ! [ -f $efivars/$secureboot_var ] \
+       || [ "$(od -An -t u1 $efivars/$secureboot_var | awk '{ print $NF }')" -ne 1 ]
+    then
+        echo "Secure Boot not enabled on this system." >&2
+        return 0
+    fi
+    moksbstatert=0
+    if [ -f $efivars/$moksb_var ]; then
+        # if MokSB exists we've likely already run mokutil since last boot
+        echo "The Secure Boot policy was already changed since last reboot; nothing to do." >&2
+        return 0
+    fi
+    if [ -f /proc/sys/kernel/moksbstate_disabled ]; then
+        moksbstatert=$(cat /proc/sys/kernel/moksbstate_disabled 2>/dev/null || echo 0)
+    elif [ -f $efivars/$moksbstatert_var ]; then
+        # MokSBStateRT set to 1 means validation is disabled
+        moksbstatert=$(od -An -t u1 $efivars/$moksbstatert_var | \
+                       awk '{ print $NF; }')
+    fi
+    # poor man's xor
+    if [ $(($moksbstatert+$enable_sb)) -ne 1 ]; then
+        STATE=1
+        db_settitle shim/title/secureboot
+        while true; do
+            case "$STATE" in
+            1)
+                db_capb
+                db_fset shim/secureboot_explanation seen false
+                db_input critical shim/secureboot_explanation || true
+                db_go
+
+                # Allow the user to skip disabling Secure Boot.
+                db_fset shim/${action}_secureboot seen false
+                db_input critical shim/${action}_secureboot || true
+                ;;
+            2)
+                db_get shim/${action}_secureboot
+                if [ "$RET" = "false" ]; then
+                    break
+                fi
+
+                db_input critical shim/secureboot_key || true
+                seen_key=$RET
+                db_input critical shim/secureboot_key_again || true
+                ;;
+            3)
+                db_get shim/secureboot_key
+                key="$RET"
+                db_get shim/secureboot_key_again
+                again="$RET"
+
+                if [ -z "$key$again" ] && echo "$seen_key" | grep -q ^30; then
+                    echo "Running in non-interactive mode, doing nothing." >&2
+                    exit 1
+                fi
+
+                db_capb
+                if [ "$key" != "$again" ]; then
+                    db_fset shim/error/secureboot_key_mismatch seen false
+                    db_input critical shim/error/secureboot_key_mismatch || true
+                    STATE=$(($STATE - 2))
+                else
+                    length=$((`echo "$key" | wc -c` - 1))
+                    if [ $length -lt 8 ] || [ $length -gt 16 ]; then
+                        db_fset shim/error/bad_secureboot_key seen false
+                        db_input critical shim/error/bad_secureboot_key || true
+                        STATE=$(($STATE - 2))
+                    elif [ $length -ne 0 ]; then
+                        printf '%s\n%s\n' "$key" "$again" | mokutil --${action}-validation >/dev/null || true
+                    fi
+                fi
+
+                # Always clear secureboot key.
+                db_set shim/secureboot_key ''
+                db_fset shim/secureboot_key seen false
+                db_set shim/secureboot_key_again ''
+                db_fset shim/secureboot_key_again seen false
+                ;;
+            *)
+                break
+                ;;
+            esac
+
+            if db_go; then
+                STATE=$(($STATE + 1))
+            else
+                STATE=$(($STATE - 1))
+            fi
+            db_capb backup
+        done
+        db_capb
+    fi
+}
+
+args=$@
+enable_secureboot=0
+
+if echo "$args" | grep -qc -- '--enable'; then
+	enable_secureboot=1
+elif echo "$args" | grep -qc -- '--disable'; then
+	enable_secureboot=0
+elif echo "$args" | grep -qc -- '--help'; then
+	echo "update-secureboot-policy: toggle UEFI Secure Boot in shim"
+	echo
+	echo "\t--enable\tPrompt to enable Secure Boot validation."
+	echo "\t--disable\tPrompt to disable Secure Boot validation (default)."
+	echo "\t--help\t\tThis help text."
+	exit 0
+fi
+
+if [ -d /var/lib/dkms ] &&
+       [ `find /var/lib/dkms -type d -print | wc -l ` -gt 1 ]; then
+    setup_mok_validation $enable_secureboot
+else
+	echo "No DKMS packages installed: not changing Secure Boot validation state."
+fi
+
+exit 0

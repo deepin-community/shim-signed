@@ -1,0 +1,3 @@
+# We used to use dh_installdocs --link-doc so all the doc files were
+# in shim-signed-common. We now need to undo that, properly.
+symlink_to_dir /usr/share/doc/shim-signed shim-signed-common 1.36~ shim-signed

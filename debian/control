@@ -1,15 +1,55 @@
-Source: template-repository
-Section: unknown
+Source: shim-signed
+Section: utils
 Priority: optional
-Maintainer: Tsic404 <liuheng@deepin.org>
-Build-Depends: debhelper (>= 11)
-Standards-Version: 4.1.3
-Homepage: https://github.com/deepin-community/template-repository
-#Vcs-Browser: https://salsa.debian.org/debian/deepin-community-template-repository
-#Vcs-Git: https://salsa.debian.org/debian/deepin-community-template-repository.git
+Maintainer: Debian EFI Team <debian-efi@lists.debian.org>
+Uploaders: Steve McIntyre <93sam@debian.org>, Steve Langasek <vorlon@debian.org>
+Build-Depends: debhelper (>= 12),
+ shim-unsigned (>= 15.4-5),
+# sbsigntool before 0.9.2-2 had a horrid bug with checksum calculation
+# which broke our build
+ sbsigntool (>= 0.9.2-2),
+ po-debconf
+Standards-Version: 4.5.1
+Vcs-Browser: https://salsa.debian.org/efi-team/shim-signed
+Vcs-Git: https://salsa.debian.org/efi-team/shim-signed.git
 
-Package: template-repository
-Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Package: shim-signed
+Architecture: amd64 i386 arm64
+Multi-Arch: same
+Depends: ${misc:Depends},
+ shim-signed-common (>= ${binary:Version}),
+ grub-efi-amd64-bin [amd64],
+ shim-helpers-amd64-signed (>= 1+15.4+2) [amd64],
+ grub-efi-ia32-bin [i386],
+ shim-helpers-i386-signed (>= 1+15.4+2) [i386],
+ grub-efi-arm64-bin [arm64],
+ shim-helpers-arm64-signed (>= 1+15.4+2) [arm64],
+ grub2-common (>= 2.02+dfsg1-16)
+Recommends: secureboot-db
+Built-Using: shim (= ${shim:Version})
+Description: Secure Boot chain-loading bootloader (Microsoft-signed binary)
+ This package provides a minimalist boot loader which allows verifying
+ signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+ against a built-in signature database.  Its purpose is to allow a small,
+ infrequently-changing binary to be signed by the UEFI CA, while allowing
+ an OS distributor to revision their main bootloader independently of the CA.
+ .
+ This package contains the version of the bootloader binary signed by the
+ Microsoft UEFI CA.
+
+Package: shim-signed-common
+Multi-Arch: foreign
+Architecture: all
+Depends: ${misc:Depends}, mokutil
+Replaces: shim-signed (<< 1.34.is.1.23+0.9+1474479173.6c180c6-1deepin)
+Breaks: shim-signed (<< 1.34.is.1.23+0.9+1474479173.6c180c6-1deepin)
+Conflicts: shim-signed (= 1.36.2+15.4.1-5) 
+Description: Secure Boot chain-loading bootloader (common helper scripts)
+ This package provides a minimalist boot loader which allows verifying
+ signatures of other UEFI binaries against either the Secure Boot DB/DBX or
+ against a built-in signature database.  Its purpose is to allow a small,
+ infrequently-changing binary to be signed by the UEFI CA, while allowing
+ an OS distributor to revision their main bootloader independently of the CA.
+ .
+ This package contains common helper scripts for all versions of the
+ shim-signed package.

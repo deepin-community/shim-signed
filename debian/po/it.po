@@ -1,0 +1,167 @@
+# Italian translation of shim-signed debconf messages
+# Copyright (C) 2018, shim-signed package copyright holder
+# This file is distributed under the same license as the shim-signed package.
+# Beatrice Torracca <beatricet@libero.it>, 2018.
+msgid ""
+msgstr ""
+"Project-Id-Version: shim-signed\n"
+"Report-Msgid-Bugs-To: shim-signed@packages.debian.org\n"
+"POT-Creation-Date: 2018-11-04 08:13+0100\n"
+"PO-Revision-Date: 2018-11-09 08:48+0200\n"
+"Last-Translator: Beatrice Torracca <beatricet@libero.it>\n"
+"Language-Team: Italian <debian-l10n-italian@lists.debian.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Virtaal 0.7.1\n"
+
+#. Type: text
+#. Description
+#: ../templates:1001
+msgid "Configuring UEFI Secure Boot"
+msgstr "Configurazione di Secure Boot (avvio protetto) UEFI"
+
+#. Type: error
+#. Description
+#: ../templates:2001
+msgid "Invalid password"
+msgstr "Password non valida"
+
+#. Type: error
+#. Description
+#: ../templates:2001
+msgid ""
+"The Secure Boot key you've entered is not valid. The password used must be "
+"between 8 and 16 characters."
+msgstr ""
+"La chiave per il Secure Boot inserita non è valida. La password utilizzata "
+"deve contenere da 8 a 16 caratteri."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Disable UEFI Secure Boot?"
+msgstr "Disabilitare il Secure Boot UEFI?"
+
+#. Type: boolean
+#. Description
+#. Type: note
+#. Description
+#: ../templates:3001 ../templates:5001
+msgid ""
+"If Secure Boot remains enabled on your system, your system may still boot "
+"but any hardware that requires third-party drivers to work correctly may not "
+"be usable."
+msgstr ""
+"Se Secure Boot rimane abilitato sul sistema, questo potrà comunque avviarsi, "
+"ma qualsiasi hardware che richiede driver di terze parti per funzionare "
+"correttamente potrebbe non essere utilizzabile."
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Enable UEFI Secure Boot?"
+msgstr "Abilitare il Secure Boot UEFI?"
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid ""
+"If Secure Boot is enabled on your system, your system may still boot but any "
+"hardware that requires third-party drivers to work correctly may not be "
+"usable."
+msgstr ""
+"Se Secure Boot viene abilitato sul sistema, questo potrà comunque avviarsi, "
+"ma qualsiasi hardware che richiede driver di terze parti per funzionare "
+"correttamente potrebbe non essere utilizzabile."
+
+#. Type: note
+#. Description
+#: ../templates:5001
+msgid "Your system has UEFI Secure Boot enabled"
+msgstr "Questo sistema ha il Secure Boot UEFI abilitato"
+
+#. Type: note
+#. Description
+#: ../templates:5001
+msgid "UEFI Secure Boot is not compatible with the use of third-party drivers."
+msgstr ""
+"Il Secure Boot UEFI non è compatibile con l'uso di driver di terze parti."
+
+#. Type: note
+#. Description
+#: ../templates:5001
+msgid ""
+"The system will assist you in toggling UEFI Secure Boot. To ensure that this "
+"change is being made by you as an authorized user, and not by an attacker, "
+"you must choose a password now and then use the same password after reboot "
+"to confirm the change."
+msgstr ""
+"Il sistema aiuterà nella modifica del Secure Boot UEFI. Per assicurare che "
+"questa modifica venga fatta da un utente autorizzato e non da un autore di "
+"attacchi, è necessario scegliere una password ora e poi usare la stessa "
+"password dopo il riavvio per confermare la modifica."
+
+#. Type: note
+#. Description
+#: ../templates:5001
+msgid ""
+"If you choose to proceed but do not confirm the password upon reboot, the "
+"Secure Boot configuration will not be changed, and the machine will continue "
+"booting as before."
+msgstr ""
+"Se si sceglie di procedere ma non si conferma la password dopo il riavvio, "
+"la configurazione del Secure Boot non verrà modificata e la macchina "
+"continuerà ad avviarsi come prima."
+
+#. Type: password
+#. Description
+#: ../templates:6001
+msgid "UEFI Secure Boot password:"
+msgstr "Password per Secure Boot UEFI:"
+
+#. Type: password
+#. Description
+#: ../templates:6001
+msgid "Please enter a password for configuring UEFI Secure Boot."
+msgstr "Inserire una password per configurare il Secure Boot UEFI."
+
+#. Type: password
+#. Description
+#: ../templates:6001
+msgid ""
+"This password will be used after a reboot to confirm authorization for a "
+"change to Secure Boot state."
+msgstr ""
+"Questa password verrà usata dopo il riavvio per confermare l'autorizzazione "
+"per una modifica allo stato del Secure Boot."
+
+#. Type: password
+#. Description
+#: ../templates:7001
+msgid "Re-enter password to verify:"
+msgstr "Reinserire la password per verifica:"
+
+#. Type: password
+#. Description
+#: ../templates:7001
+msgid ""
+"Please enter the same password again to verify that you have typed it "
+"correctly."
+msgstr ""
+"Inserire nuovamente la stessa password per verificare di averla digitata "
+"correttamente."
+
+#. Type: error
+#. Description
+#: ../templates:8001
+msgid "Password input error"
+msgstr "Errore nell'inserimento della password"
+
+#. Type: error
+#. Description
+#: ../templates:8001
+msgid "The two passwords you entered were not the same. Please try again."
+msgstr "Le due password inserite non erano identiche. Riprovare."
