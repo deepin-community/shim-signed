@@ -1,3 +1,9 @@
+shim-signed (1.36.6) unstable; urgency=medium
+
+  * add UOS certificate signature.
+
+ -- zhouzilong <zhouzilong@uniontech.com>  Fri, 11 Apr 2025 17:10:51 +0800
+
 shim-signed (1.36.5) unstable; urgency=medium
 
   * add shimaa64.efi.
