@@ -1,3 +1,9 @@
+shim-signed (1.36.7) unstable; urgency=medium
+
+  * update shimx64.efi
+
+ -- lichenggang <lichenggang@deepin.org>  Mon, 15 Dec 2025 10:39:22 +0800
+
 shim-signed (1.36.6) unstable; urgency=medium
 
   * add UOS certificate signature.
