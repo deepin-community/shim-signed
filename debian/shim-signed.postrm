@@ -31,6 +31,10 @@ case ${ARCH} in
 	SHIM_REMOVE="shimaa64.efi"
 	GRUB_EFI_TARGET="arm64-efi"
 	;;
+    loong64)
+	SHIM_REMOVE="shimloongarch64.efi"
+	GRUB_EFI_TARGET="loongarch64-efi"
+	;;
     *)
 	echo "Unsupported dpkg architecture ${ARCH} in $0. ABORT"
 	exit 1

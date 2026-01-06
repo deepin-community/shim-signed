@@ -14,7 +14,7 @@ Vcs-Browser: https://salsa.debian.org/efi-team/shim-signed
 Vcs-Git: https://salsa.debian.org/efi-team/shim-signed.git
 
 Package: shim-signed
-Architecture: amd64 i386 arm64
+Architecture: amd64 i386 arm64 loong64
 Multi-Arch: same
 Depends: ${misc:Depends},
  shim-signed-common (>= ${binary:Version}),
@@ -24,6 +24,7 @@ Depends: ${misc:Depends},
  shim-helpers-i386-signed (>= 1+15.4+2) [i386],
  grub-efi-arm64-bin [arm64],
  shim-helpers-arm64-signed (>= 1+15.4+2) [arm64],
+ grub-efi-loong64-bin [loong64],
  grub2-common (>= 2.02+dfsg1-16)
 Recommends: secureboot-db
 Built-Using: shim (= ${shim:Version})

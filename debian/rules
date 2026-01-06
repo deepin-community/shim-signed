@@ -7,15 +7,19 @@ VENDOR := $(shell dpkg-vendor --query vendor)
 include /usr/share/dpkg/architecture.mk
 
 ifeq ($(DEB_HOST_ARCH),amd64)
-$(shell rm build/shimaa64*)
+$(shell rm build/shimaa64* build/shimloongarch64*)
 export EFI_ARCH := x64
 endif
 ifeq ($(DEB_HOST_ARCH),arm64)
-$(shell rm build/shimx64*)
+$(shell rm build/shimx64* build/shimloongarch64*)
 export EFI_ARCH := aa64
 endif
 ifeq ($(DEB_HOST_ARCH),i386)
 export EFI_ARCH := ia32
+endif
+ifeq ($(DEB_HOST_ARCH),loong64)
+$(shell rm build/shimx64* build/shimaa64*)
+export EFI_ARCH := loongarch64
 endif
 
 %:
