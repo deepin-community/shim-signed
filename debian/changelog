@@ -1,3 +1,10 @@
+shim-signed (1.36.9) unstable; urgency=medium
+
+  * support loongarch arch
+  * add shimloongarch64.efi
+
+ -- zhouzilong <zhouzilong@uniontech.com>  Tue, 06 Jan 2026 18:37:29 +0800
+
 shim-signed (1.36.8) unstable; urgency=medium
 
   * add UOS cert sign for shimx64.efi
