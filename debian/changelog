@@ -1,3 +1,9 @@
+shim-signed (1.36.10) unstable; urgency=medium
+
+  * update shimaa64.efi for 15.8 and uos signed
+
+ -- zhouzilong <zhouzilong@uniontech.com>  Mon, 19 Jan 2026 13:54:44 +0800
+
 shim-signed (1.36.9) unstable; urgency=medium
 
   * support loongarch arch
