@@ -93,9 +93,9 @@ case $1 in
 	    rm -f "/boot/efi/EFI/$bootloader_id/$SHIM_REMOVE"
 	fi
 
-	if which update-secureboot-policy >/dev/null 2>&1; then
-	    SHIM_NOTRIGGER=y update-secureboot-policy
-	fi
+#	if which update-secureboot-policy >/dev/null 2>&1; then
+#	    SHIM_NOTRIGGER=y update-secureboot-policy
+#	fi
 	;;
 esac
 
