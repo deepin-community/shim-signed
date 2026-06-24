@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Debian EFI Team <debian-efi@lists.debian.org>
 Uploaders: Steve McIntyre <93sam@debian.org>, Steve Langasek <vorlon@debian.org>
 Build-Depends: debhelper (>= 12),
- shim-unsigned (>= 15.4-5),
+ shim-unsigned (>= 15.8-1),
 # sbsigntool before 0.9.2-2 had a horrid bug with checksum calculation
 # which broke our build
  sbsigntool (>= 0.9.2-2),
@@ -19,11 +19,11 @@ Multi-Arch: same
 Depends: ${misc:Depends},
  shim-signed-common (>= ${binary:Version}),
  grub-efi-amd64-bin [amd64],
- shim-helpers-amd64-signed (>= 1+15.4+2) [amd64],
+ shim-helpers-amd64-signed (>= 1+15.8+1) [amd64],
  grub-efi-ia32-bin [i386],
- shim-helpers-i386-signed (>= 1+15.4+2) [i386],
+ shim-helpers-i386-signed (>= 1+15.8+1) [i386],
  grub-efi-arm64-bin [arm64],
- shim-helpers-arm64-signed (>= 1+15.4+2) [arm64],
+ shim-helpers-arm64-signed (>= 1+15.8+1) [arm64],
  grub-efi-loong64-bin [loong64],
  grub2-common (>= 2.02+dfsg1-16)
 Recommends: secureboot-db
