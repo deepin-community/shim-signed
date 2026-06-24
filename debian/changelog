@@ -1,3 +1,10 @@
+shim-signed (1.36.13) unstable; urgency=medium
+
+  * Fix CVE-2023-40547: remote code execution in HTTP boot support.
+    Update signed binaries to shim 15.8 which includes the fix.
+
+ -- deepin-ci-robot <packages@deepin.org>  Wed, 24 Jun 2026 19:38:00 +0800
+
 shim-signed (1.36.12) unstable; urgency=medium
 
   * Fix CVE-2023-40548: buffer overflow in shim 32-bit system.
